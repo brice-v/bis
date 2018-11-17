@@ -142,7 +142,7 @@ if lang_in == 'y':
     install_langs_proc = Popen('sudo apt install octave sbcl lua5.3 ghc ruby nim nodejs leiningen golang curl mono-devel -y' , shell=True)
     install_langs_proc.wait()
     print("Installing Rust...")
-    install_rust_proc = Popen('curl https://sh.rustup.rs -sSf | sh' , shell=True)
+    install_rust_proc = Popen('curl https://sh.rustup.rs -sSf | sh 1' , shell=True)
     install_rust_proc.wait()
     print("Installing Crystal...")
     install_crystal_proc = Popen('curl -sSL https://dist.crystal-lang.org/apt/setup.sh' , shell=True)
