@@ -84,7 +84,7 @@ youtube-dl, powertop, tlp, ncdu, albert, npm, pip, gem, gdb, lldb, curl, wget)\n
 
 if tools_in == 'y':
     print("Installing tools and toolchains...")
-    install_app_proc = Popen('sudo apt install npm curl wget lldb gdb gem powertop tlp coreutils binutils gcc clang git sed gawk htop tmux pry ncdu -y' , shell=True)
+    install_app_proc = Popen('sudo apt install npm curl wget lldb gdb gem powertop tlp coreutils binutils gcc clang git sed gawk htop tmux pry ncdu python2.7-dev python3.6-dev -y' , shell=True)
     install_app_proc.wait()
     install_pip_proc = Popen('cd ~',shell=True)
     install_pip_proc.wait()
