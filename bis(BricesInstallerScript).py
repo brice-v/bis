@@ -42,6 +42,21 @@ up_proc2.wait()
 
 ############################################################################################################
 
+def plank_autostart():
+    home = os.environ["HOME"]
+    launcher = ["[Desktop Entry]", "Name=Plank", "Exec=plank &", "Type=Application", "X-GNOME-Autostart-enabled=true"]
+    dr = home+"/.config/autostart/"
+    if not os.path.exists(dr):
+        os.makedirs(dr)
+    file = dr+name.lower()+".desktop"
+
+    if not os.path.exists(file):
+        with open(file, "wt") as out:     
+            out.write(launcher+"\n")
+    else:
+        print("file exists, choose another name")
+
+
 print("----------------------------------------------------------------------------")
 app_in = input("Would you like to install apps? (y/N)\n")
 
@@ -57,21 +72,6 @@ if app_in == 'y':
     install_app_proc2.wait()
 else:
     print("Skipping apps...")
-
-
-def plank_autostart():
-    home = os.environ["HOME"]
-    launcher = ["[Desktop Entry]", "Name=Plank", "Exec=plank &", "Type=Application", "X-GNOME-Autostart-enabled=true"]
-    dr = home+"/.config/autostart/"
-    if not os.path.exists(dr):
-        os.makedirs(dr)
-    file = dr+name.lower()+".desktop"
-
-    if not os.path.exists(file):
-        with open(file, "wt") as out:     
-            out.write(launcher+"\n")
-    else:
-        print("file exists, choose another name")
 
 
 ############################################################################################################
