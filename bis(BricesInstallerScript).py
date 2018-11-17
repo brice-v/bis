@@ -90,7 +90,7 @@ if tools_in == 'y':
     install_pip_proc.wait()
     install_pip_proc1 = Popen('curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py' , shell=True)
     install_pip_proc1.wait()
-    install_pip_proc2 = Popen('python get-pip.py --user', shell=True)
+    install_pip_proc2 = Popen('python get-pip.py', shell=True)
     install_pip_proc2.wait()
     install_hg_proc = Popen('cd ~',shell=True)
     install_hg_proc.wait()
