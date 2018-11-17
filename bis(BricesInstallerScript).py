@@ -51,8 +51,9 @@ def plank_autostart():
     file = dr+"Plank".lower()+".desktop"
 
     if not os.path.exists(file):
-        with open(file, "wt") as out:     
-            out.write(launcher+"\n")
+        with open(file, "wt") as out: 
+            for l in launcher:
+                out.write(l+"\n")
     else:
         print("file exists, choose another name")
 
