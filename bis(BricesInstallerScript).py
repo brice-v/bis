@@ -44,14 +44,15 @@ up_proc2.wait()
 
 def plank_autostart():
     home = os.environ["HOME"]
-    launcher = ["[Desktop Entry]", "Name=Plank", "Exec=plank &", "Type=Application", "X-GNOME-Autostart-enabled=true"]
+    launcher = ["[Desktop Entry]", "Name=Plank", "Exec=plank &",
+                "Type=Application", "X-GNOME-Autostart-enabled=true"]
     dr = home+"/.config/autostart/"
     if not os.path.exists(dr):
         os.makedirs(dr)
     file = dr+"Plank".lower()+".desktop"
 
     if not os.path.exists(file):
-        with open(file, "wt") as out: 
+        with open(file, "wt") as out:
             for l in launcher:
                 out.write(l+"\n")
     else:
@@ -64,12 +65,14 @@ app_in = input("Would you like to install apps? (y/N)\n")
 if app_in == 'y':
     print("Installing apps...")
     install_app_proc = Popen('sudo apt install python python3 vlc clementine vim emacs geany mupdf evince plank thunderbird\
-     firefox galculator aptitude synaptic neofetch virtualbox mutt cmus audacity ranger lynx bc dc sqlite3 ffmpeg -y' ,shell=True)
+     firefox galculator aptitude synaptic neofetch virtualbox mutt cmus audacity ranger lynx bc dc sqlite3 ffmpeg -y', shell=True)
     install_app_proc.wait()
     plank_autostart()
-    install_app_proc1 = Popen('sudo add-apt-repository ppa:twodopeshaggy/jarun -y' , shell=True)
+    install_app_proc1 = Popen(
+        'sudo add-apt-repository ppa:twodopeshaggy/jarun -y', shell=True)
     install_app_proc1.wait()
-    install_app_proc2 = Popen('sudo apt update && sudo apt install nnn -y' , shell=True)
+    install_app_proc2 = Popen(
+        'sudo apt update && sudo apt install nnn -y', shell=True)
     install_app_proc2.wait()
 else:
     print("Skipping apps...")
@@ -84,12 +87,14 @@ youtube-dl, powertop, tlp, ncdu, albert, npm, pip, gem, gdb, lldb, curl, wget)\n
 
 if tools_in == 'y':
     print("Installing tools and toolchains...")
-    install_app_proc = Popen('sudo apt install npm curl wget lldb ffmpeg gdb gem powertop tlp coreutils binutils gcc clang git sed gawk htop tmux pry ncdu python2.7-dev python3.6-dev -y' , shell=True)
+    install_app_proc = Popen(
+        'sudo apt install npm curl wget lldb ffmpeg gdb gem powertop tlp coreutils binutils gcc clang git sed gawk htop tmux pry ncdu python2.7-dev python3.6-dev -y', shell=True)
     install_app_proc.wait()
     print("Installing pip...")
-    install_pip_proc = Popen('cd ~',shell=True)
+    install_pip_proc = Popen('cd ~', shell=True)
     install_pip_proc.wait()
-    install_pip_proc1 = Popen('curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py' , shell=True)
+    install_pip_proc1 = Popen(
+        'curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py', shell=True)
     install_pip_proc1.wait()
     install_pip_proc2 = Popen('python get-pip.py --user', shell=True)
     install_pip_proc2.wait()
@@ -98,7 +103,7 @@ if tools_in == 'y':
     add_pip_path1 = Popen('source ~/.bashrc', shell=True)
     add_pip_path1.wait()
     print("Installing Mercurial...")
-    install_hg_proc = Popen('cd ~',shell=True)
+    install_hg_proc = Popen('cd ~', shell=True)
     install_hg_proc.wait()
     install_hg_proc1 = Popen('pip install Mercurial --user', shell=True)
     install_hg_proc1.wait()
@@ -111,18 +116,22 @@ if tools_in == 'y':
     # install_fzf_proc3 = Popen('~/.fzf/install')
     # install_fzf_proc3.wait()
     print("Installing youtube-dl...")
-    install_youtubedl_proc = Popen('sudo pip install --upgrade youtube_dl', shell=True)
+    install_youtubedl_proc = Popen(
+        'sudo pip install --upgrade youtube_dl', shell=True)
     install_youtubedl_proc.wait()
     print("Installing Albert Launcher...")
     install_albert_proc = Popen('cd ~', shell=True)
     install_albert_proc.wait()
-    install_albert_proc1 = Popen('wget -nv -O Release.key https://build.opensuse.org/projects/home:manuelschneid3r/public_key', shell=True)
+    install_albert_proc1 = Popen(
+        'wget -nv -O Release.key https://build.opensuse.org/projects/home:manuelschneid3r/public_key', shell=True)
     install_albert_proc1.wait()
-    install_albert_proc2 = Popen('sudo apt-key add - < Release.key', shell=True)
+    install_albert_proc2 = Popen(
+        'sudo apt-key add - < Release.key', shell=True)
     install_albert_proc2.wait()
     install_albert_proc3 = Popen('sudo apt update', shell=True)
     install_albert_proc3.wait()
-    install_albert_proc4 = Popen('sudo sh -c \"echo \'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_18.04/ /\' > /etc/apt/sources.list.d/home:manuelschneid3r.list\"', shell=True)
+    install_albert_proc4 = Popen(
+        'sudo sh -c \"echo \'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_18.04/ /\' > /etc/apt/sources.list.d/home:manuelschneid3r.list\"', shell=True)
     install_albert_proc4.wait()
     install_albert_proc5 = Popen('sudo apt update', shell=True)
     install_albert_proc5.wait()
@@ -139,18 +148,22 @@ lang_in = input("Would you like to install all Languages ? (y/N)\n(Go, Rust, Swi
 
 if lang_in == 'y':
     print("Installing languages...")
-    install_langs_proc = Popen('sudo apt install octave sbcl lua5.3 ghc ruby nim nodejs leiningen golang curl mono-devel -y' , shell=True)
+    install_langs_proc = Popen(
+        'sudo apt install octave sbcl lua5.3 ghc ruby nim nodejs leiningen golang curl mono-devel -y', shell=True)
     install_langs_proc.wait()
     print("Installing Rust...")
-    install_rust_proc = Popen('curl https://sh.rustup.rs -sSf | sh 1' , shell=True)
+    install_rust_proc = Popen(
+        'curl https://sh.rustup.rs -sSf | sh 1', shell=True)
     install_rust_proc.wait()
     print("Installing Crystal...")
-    install_crystal_proc = Popen('curl -sSL https://dist.crystal-lang.org/apt/setup.sh' , shell=True)
+    install_crystal_proc = Popen(
+        'curl -sSL https://dist.crystal-lang.org/apt/setup.sh', shell=True)
     install_crystal_proc.wait()
-    install_crystal_proc1 = Popen('sudo apt install crystal -y' , shell=True)
+    install_crystal_proc1 = Popen('sudo apt install crystal -y', shell=True)
     install_crystal_proc1.wait()
     # Libraries for crystal and one for swift
-    install_crystal_proc2 = Popen('sudo apt install libssl-dev libxml2-dev libyaml-dev libgmp-dev libreadline-dev libicu-dev -y ', shell=True)
+    install_crystal_proc2 = Popen(
+        'sudo apt install libssl-dev libxml2-dev libyaml-dev libgmp-dev libreadline-dev libicu-dev -y ', shell=True)
     install_crystal_proc2.wait()
     install_swift_proc = Popen('sudo apt install ubuntu-make -y', shell=True)
     install_swift_proc.wait()
@@ -160,10 +173,10 @@ if lang_in == 'y':
     print("Installing kotlin...")
     install_kotlin_proc = Popen('umake kotlin kotlin-lang', shell=True)
     install_kotlin_proc.wait()
-    print("Installing maven...")
-    install_maven_proc = Popen('umake maven maven-lang', shell=True)
-    install_maven_proc.wait()
-else:
+#     print("Installing maven...")
+#     install_maven_proc = Popen('umake maven maven-lang', shell=True)
+#     install_maven_proc.wait()
+# else:
     print("Skipping languages...")
 
 
@@ -175,42 +188,49 @@ txtide_in = input("Would you like to install text editors and ides? (y/N)\n")
 if txtide_in == 'y':
     print("Installing text editors and ides...")
     # Install Portacle, Nightcode, Vscode, Sublime Text, pycharm, intellij, netbeans, codeblocks, Lighttable, neovim, spacemacs, redcar for ruby, glade, qtcreator
-    install_apps_proc = Popen('sudo apt install glade qtcreator codeblocks neovim python-neovim python3-neovim libgconf2-4 -y' , shell=True)
+    install_apps_proc = Popen(
+        'sudo apt install glade qtcreator codeblocks neovim python-neovim python3-neovim libgconf2-4 -y', shell=True)
     install_apps_proc.wait()
-    make_idedir = Popen('cd ~',shell=True)
+    make_idedir = Popen('cd ~', shell=True)
     make_idedir.wait()
-    make_idedir1 = Popen('mkdir ides',shell=True)
+    make_idedir1 = Popen('mkdir ides', shell=True)
     make_idedir1.wait()
-    make_idedir2 = Popen('cd ~/ides',shell=True)
+    make_idedir2 = Popen('cd ~/ides', shell=True)
     make_idedir2.wait()
     print("Installing portacle...")
-    install_portacle_proc = Popen('wget https://github.com/portacle/portacle/releases/download/1.2b/lin-portacle.tar.xz',shell=True)
+    install_portacle_proc = Popen(
+        'wget https://github.com/portacle/portacle/releases/download/1.2b/lin-portacle.tar.xz', shell=True)
     install_portacle_proc.wait()
-    install_portacle_proc1 = Popen('tar -xvzf lin-portacle.tar.xz',shell=True)
+    install_portacle_proc1 = Popen('tar -xvzf lin-portacle.tar.xz', shell=True)
     install_portacle_proc1.wait()
-    cleanup_portacle_install = Popen('rm -rf lin-portacle.tar.xz',shell=True)
+    cleanup_portacle_install = Popen('rm -rf lin-portacle.tar.xz', shell=True)
     cleanup_portacle_install.wait()
-    change_to_idedir = Popen('cd ~/ides',shell=True)
+    change_to_idedir = Popen('cd ~/ides', shell=True)
     change_to_idedir.wait()
     print("Installing Nightcode...")
-    install_nightcode_proc = Popen('wget https://github.com/oakes/Nightcode/releases/download/2.6.0/Nightcode-2.6.0.deb', shell=True)
+    install_nightcode_proc = Popen(
+        'wget https://github.com/oakes/Nightcode/releases/download/2.6.0/Nightcode-2.6.0.deb', shell=True)
     install_nightcode_proc.wait()
-    install_nightcode_proc1 = Popen('dpkg -i Nightcode-2.6.0.deb',shell=True)
+    install_nightcode_proc1 = Popen('dpkg -i Nightcode-2.6.0.deb', shell=True)
     install_nightcode_proc1.wait()
     print("Installing Sublime Text and Merge...")
-    install_st_proc = Popen('wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -',shell=True)
+    install_st_proc = Popen(
+        'wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -', shell=True)
     install_st_proc.wait()
-    install_st_proc1 = Popen('sudo apt install apt-transport-https -y',shell=True)
+    install_st_proc1 = Popen(
+        'sudo apt install apt-transport-https -y', shell=True)
     install_st_proc1.wait()
-    install_st_proc2 = Popen('echo \"deb https://download.sublimetext.com/ apt/stable/\" | sudo tee /etc/apt/sources.list.d/sublime-text.list',shell=True)
+    install_st_proc2 = Popen(
+        'echo \"deb https://download.sublimetext.com/ apt/stable/\" | sudo tee /etc/apt/sources.list.d/sublime-text.list', shell=True)
     install_st_proc2.wait()
-    install_st_proc3 = Popen('sudo apt update',shell=True)
+    install_st_proc3 = Popen('sudo apt update', shell=True)
     install_st_proc3.wait()
-    install_st_proc4 = Popen('sudo apt install sublime-text sublime-merge -y',shell=True)
+    install_st_proc4 = Popen(
+        'sudo apt install sublime-text sublime-merge -y', shell=True)
     install_st_proc4.wait()
-    print("Installing android studio...")
-    install_android_proc = Popen('umake android', shell=True)
-    install_android_proc.wait()
+    # print("Installing android studio...")
+    # install_android_proc = Popen('umake android', shell=True)
+    # install_android_proc.wait()
     print("Installing pycharm...")
     install_pycharm_proc = Popen('umake ide pycharm', shell=True)
     install_pycharm_proc.wait()
@@ -229,7 +249,8 @@ if txtide_in == 'y':
     print("Installing redcar for ruby...")
     install_redcar_proc = Popen('gem install redcar', shell=True)
     install_redcar_proc.wait()
-    install_spacemacs_proc = Popen('git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d', shell=True)
+    install_spacemacs_proc = Popen(
+        'git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d', shell=True)
     install_spacemacs_proc.wait()
 else:
     print("Skipping text editors and ides...")
@@ -242,31 +263,42 @@ improve_look_in = input("Would you like to update the look? (y/N)\n")
 
 if improve_look_in == 'y':
     print("Installing vimix and antishade themes...")
-    install_antishade_proc = Popen('git clone https://github.com/KenHarkey/plank-themes.git ~/.local/share/plank/themes' , shell=True)
+    install_antishade_proc = Popen(
+        'git clone https://github.com/KenHarkey/plank-themes.git ~/.local/share/plank/themes', shell=True)
     install_antishade_proc.wait()
-    install_vimix_proc = Popen('sudo apt install gtk2-engines-murrine gtk2-engines-pixbuf -y' , shell=True)
+    install_vimix_proc = Popen(
+        'sudo apt install gtk2-engines-murrine gtk2-engines-pixbuf -y', shell=True)
     install_vimix_proc.wait()
-    install_vimix_proc1 = Popen('git clone https://github.com/vinceliuice/vimix-gtk-themes.git ~/Downloads' , shell=True)
+    install_vimix_proc1 = Popen(
+        'git clone https://github.com/vinceliuice/vimix-gtk-themes.git ~/Downloads', shell=True)
     install_vimix_proc1.wait()
-    install_vimix_proc2 = Popen('sudo chmod +x ~/Downloads/vimix-gtk-themes/Install' , shell=True)
+    install_vimix_proc2 = Popen(
+        'sudo chmod +x ~/Downloads/vimix-gtk-themes/Install', shell=True)
     install_vimix_proc2.wait()
-    install_vimix_proc3 = Popen('~/Downloads/vimix-gtk-themes/Install' , shell=True)
+    install_vimix_proc3 = Popen(
+        '~/Downloads/vimix-gtk-themes/Install', shell=True)
     install_vimix_proc3.wait()
     print("Installing papirus icons...")
-    install_papirus_proc = Popen('sudo add-apt-repository ppa:papirus/papirus -y' , shell=True)
+    install_papirus_proc = Popen(
+        'sudo add-apt-repository ppa:papirus/papirus -y', shell=True)
     install_papirus_proc.wait()
-    install_papirus_proc1 = Popen('sudo apt update' , shell=True)
+    install_papirus_proc1 = Popen('sudo apt update', shell=True)
     install_papirus_proc1.wait()
-    install_papirus_proc2 = Popen('sudo apt install papirus-icon-theme -y' , shell=True)
+    install_papirus_proc2 = Popen(
+        'sudo apt install papirus-icon-theme -y', shell=True)
     install_papirus_proc2.wait()
     print("Getting some backgrounds...")
-    install_backgrounds_proc = Popen('git clone https://github.com/elementary/wallpapers.git /usr/share/backgrounds' , shell=True)
+    install_backgrounds_proc = Popen(
+        'git clone https://github.com/elementary/wallpapers.git /usr/share/backgrounds', shell=True)
     install_backgrounds_proc.wait()
-    install_backgrounds_proc1 = Popen('git clone https://github.com/pop-os/wallpapers.git ~/Downloads' , shell=True)
+    install_backgrounds_proc1 = Popen(
+        'git clone https://github.com/pop-os/wallpapers.git ~/Downloads', shell=True)
     install_backgrounds_proc1.wait()
-    install_backgrounds_proc2 = Popen('cp -r ~/Downloads/wallpapers/original /usr/share/backgrounds' , shell=True)
+    install_backgrounds_proc2 = Popen(
+        'cp -r ~/Downloads/wallpapers/original /usr/share/backgrounds', shell=True)
     install_backgrounds_proc2.wait()
-    cleanup_backgrounds_proc = Popen('rm -rf ~/Downloads/wallpapers' , shell=True)
+    cleanup_backgrounds_proc = Popen(
+        'rm -rf ~/Downloads/wallpapers', shell=True)
     cleanup_backgrounds_proc.wait()
 else:
     print("Skipping improving the look...")
@@ -278,11 +310,12 @@ print("-------------------------------------------------------------------------
 work_on_proj = input("Would you like to work on RISCV VM? (y/N)")
 
 if work_on_proj == 'y':
-    #git clone my directory and then maybe open it up in vscode or something
+    # git clone my directory and then maybe open it up in vscode or something
     print("Getting Project...")
-    install_myproj_proc = Popen('mkdir ~/Documents/myprojects' , shell=True)
+    install_myproj_proc = Popen('mkdir ~/Documents/myprojects', shell=True)
     install_myproj_proc.wait()
-    install_myproj_proc2 = Popen('git clone https://github.com/brice-v/riscv_vm.git ~/Documents/myprojects' , shell=True)
+    install_myproj_proc2 = Popen(
+        'git clone https://github.com/brice-v/riscv_vm.git ~/Documents/myprojects', shell=True)
     install_myproj_proc2.wait()
 else:
     print("Skipping project...")
