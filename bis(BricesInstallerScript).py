@@ -48,7 +48,7 @@ def plank_autostart():
     dr = home+"/.config/autostart/"
     if not os.path.exists(dr):
         os.makedirs(dr)
-    file = dr+name.lower()+".desktop"
+    file = dr+"Plank".lower()+".desktop"
 
     if not os.path.exists(file):
         with open(file, "wt") as out:     
