@@ -126,7 +126,7 @@ if tools_in == 'y':
     install_albert_proc4.wait()
     install_albert_proc5 = Popen('sudo apt update', shell=True)
     install_albert_proc5.wait()
-    install_albert_proc6 = Popen('sudo apt install albert', shell=True)
+    install_albert_proc6 = Popen('sudo apt install albert -y', shell=True)
     install_albert_proc6.wait()
 else:
     print("Skipping tools and toolchains...")
