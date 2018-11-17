@@ -84,7 +84,7 @@ youtube-dl, powertop, tlp, ncdu, albert, npm, pip, gem, gdb, lldb, curl, wget)\n
 
 if tools_in == 'y':
     print("Installing tools and toolchains...")
-    install_app_proc = Popen('sudo apt install npm curl wget lldb gdb gem powertop tlp coreutils binutils gcc clang git sed gawk htop tmux pry ncdu -y' , shell=True)
+    install_app_proc = Popen('sudo apt install npm curl wget lldb gdb gem powertop tlp coreutils binutils gcc clang git sed gawk htop tmux pry ncdu python3-pip -y' , shell=True)
     install_app_proc.wait()
     install_pip_proc = Popen('cd ~',shell=True)
     install_pip_proc.wait()
@@ -92,6 +92,10 @@ if tools_in == 'y':
     install_pip_proc1.wait()
     install_pip_proc2 = Popen('python get-pip.py --user', shell=True)
     install_pip_proc2.wait()
+    add_pip_path = Popen('export PATH=~/.local/bin:$PATH', shell=True)
+    add_pip_path.wait()
+    add_pip_path1 = Popen('source ~/.bashrc', shell=True)
+    add_pip_path1.wait()
     install_hg_proc = Popen('cd ~',shell=True)
     install_hg_proc.wait()
     install_hg_proc1 = Popen('pip install Mercurial', shell=True)
