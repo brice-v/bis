@@ -114,7 +114,7 @@ if tools_in == 'y':
     install_albert_proc.wait()
     install_albert_proc1 = Popen('wget -nv -O Release.key https://build.opensuse.org/projects/home:manuelschneid3r/public_key', shell=True)
     install_albert_proc1.wait()
-    install_albert_proc2 = Popen('apt-key add - < Release.key', shell=True)
+    install_albert_proc2 = Popen('sudo apt-key add - < Release.key', shell=True)
     install_albert_proc2.wait()
     install_albert_proc3 = Popen('sudo apt update', shell=True)
     install_albert_proc3.wait()
