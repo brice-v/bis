@@ -19,7 +19,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# This is an installer script for the fresh install of an ubunutu based distro
+# This is an installer script for the fresh install of an ubuntu based distro
 
 from subprocess import *
 import os
@@ -48,7 +48,7 @@ app_in = input("Would you like to install apps? (y/N)\n")
 if app_in == 'y':
     print("Installing apps...")
     install_app_proc = subprocess.Popen('sudo apt install python python3 vlc clementine vim emacs geany mupdf evince plank thunderbird\
-     firefox galculator aptitude synaptic virtualbox mutt cmus audacity ranger lynx bc dc sqlite3 -y' ,shell=True)
+     firefox galculator aptitude synaptic virtualbox mutt cmus audacity ranger lynx bc dc sqlite3 ffmpeg -y' ,shell=True)
     install_app_proc.wait()
     plank_autostart()
     install_app_proc1 = subprocess.Popen('sudo add-apt-repository ppa:twodopeshaggy/jarun -y' , shell=True)
@@ -61,9 +61,6 @@ else:
 
 def plank_autostart():
     home = os.environ["HOME"]
-
-    name = sys.argv[1]; command = sys.argv[2]
-
     launcher = ["[Desktop Entry]", "Name=Plank", "Exec=plank &", "Type=Application", "X-GNOME-Autostart-enabled=true"]
     dr = home+"/.config/autostart/"
     if not os.path.exists(dr):
@@ -72,10 +69,7 @@ def plank_autostart():
 
     if not os.path.exists(file):
         with open(file, "wt") as out:     
-            for l in launcher:
-                l = l+name if l == "Name=" else l
-                l = l+command if l == "Exec=" else l
-                out.write(l+"\n")
+            out.write(launcher+"\n")
     else:
         print("file exists, choose another name")
 
