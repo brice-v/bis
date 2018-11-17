@@ -98,7 +98,7 @@ if tools_in == 'y':
     add_pip_path1.wait()
     install_hg_proc = Popen('cd ~',shell=True)
     install_hg_proc.wait()
-    install_hg_proc1 = Popen('pip install Mercurial', shell=True)
+    install_hg_proc1 = Popen('pip install Mercurial --user', shell=True)
     install_hg_proc1.wait()
     install_fzf_proc = Popen('cd ~',shell=True)
     install_fzf_proc.wait()
