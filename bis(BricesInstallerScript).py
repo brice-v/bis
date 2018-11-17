@@ -190,7 +190,7 @@ if txtide_in == 'y':
     install_st_proc.wait()
     install_st_proc1 = Popen('sudo apt install apt-transport-https -y',shell=True)
     install_st_proc1.wait()
-    install_st_proc2 = Popen('echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list',shell=True)
+    install_st_proc2 = Popen('echo \"deb https://download.sublimetext.com/ apt/stable/\" | sudo tee /etc/apt/sources.list.d/sublime-text.list',shell=True)
     install_st_proc2.wait()
     install_st_proc3 = Popen('sudo apt update',shell=True)
     install_st_proc3.wait()
