@@ -259,6 +259,15 @@ if improve_look_in == 'y':
     install_papirus_proc1.wait()
     install_papirus_proc2 = Popen('sudo apt install papirus-icon-theme -y' , shell=True)
     install_papirus_proc2.wait()
+    print("Getting some backgrounds...")
+    install_backgrounds_proc = Popen('git clone https://github.com/elementary/wallpapers.git /usr/share/backgrounds' , shell=True)
+    install_backgrounds_proc.wait()
+    install_backgrounds_proc1 = Popen('git clone https://github.com/pop-os/wallpapers.git ~/Downloads' , shell=True)
+    install_backgrounds_proc1.wait()
+    install_backgrounds_proc2 = Popen('cp -r ~/Downloads/wallpapers/original /usr/share/backgrounds' , shell=True)
+    install_backgrounds_proc2.wait()
+    cleanup_backgrounds_proc = Popen('rm -rf ~/Downloads/wallpapers' , shell=True)
+    cleanup_backgrounds_proc.wait()
 else:
     print("Skipping vimix and antishade themes...")
 
