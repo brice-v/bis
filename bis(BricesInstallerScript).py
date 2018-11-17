@@ -64,7 +64,7 @@ app_in = input("Would you like to install apps? (y/N)\n")
 if app_in == 'y':
     print("Installing apps...")
     install_app_proc = Popen('sudo apt install python python3 vlc clementine vim emacs geany mupdf evince plank thunderbird\
-     firefox galculator aptitude synaptic virtualbox mutt cmus audacity ranger lynx bc dc sqlite3 ffmpeg -y' ,shell=True)
+     firefox galculator aptitude synaptic neofetch virtualbox mutt cmus audacity ranger lynx bc dc sqlite3 ffmpeg -y' ,shell=True)
     install_app_proc.wait()
     plank_autostart()
     install_app_proc1 = Popen('sudo add-apt-repository ppa:twodopeshaggy/jarun -y' , shell=True)
@@ -149,7 +149,7 @@ if lang_in == 'y':
     install_crystal_proc.wait()
     install_crystal_proc1 = Popen('sudo apt install crystal -y' , shell=True)
     install_crystal_proc1.wait()
-    # Libraries for crystal
+    # Libraries for crystal and one for swift
     install_crystal_proc2 = Popen('sudo apt install libssl-dev libxml2-dev libyaml-dev libgmp-dev libreadline-dev libicu-dev -y ', shell=True)
     install_crystal_proc2.wait()
     install_swift_proc = Popen('sudo apt install ubuntu-make -y', shell=True)
@@ -269,7 +269,7 @@ if improve_look_in == 'y':
     cleanup_backgrounds_proc = Popen('rm -rf ~/Downloads/wallpapers' , shell=True)
     cleanup_backgrounds_proc.wait()
 else:
-    print("Skipping vimix and antishade themes...")
+    print("Skipping improving the look...")
 
 
 ############################################################################################################
