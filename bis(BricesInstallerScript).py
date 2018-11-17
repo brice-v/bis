@@ -88,7 +88,7 @@ youtube-dl, powertop, tlp, ncdu, albert, npm, pip, gem, gdb, lldb, curl, wget)\n
 if tools_in == 'y':
     print("Installing tools and toolchains...")
     install_app_proc = Popen(
-        'sudo apt install npm curl wget lldb ffmpeg gdb gem powertop tlp coreutils binutils gcc clang git sed gawk htop tmux pry ncdu python2.7-dev python3.6-dev -y', shell=True)
+        'sudo apt install npm curl wget lldb ffmpeg gdb gem powertop tlp coreutils binutils gcc clang git sed gawk htop tmux pry ncdu python2.7-dev python3.6-dev xz-utils -y', shell=True)
     install_app_proc.wait()
     print("Installing pip...")
     install_pip_proc = Popen('cd ~', shell=True)
@@ -107,14 +107,14 @@ if tools_in == 'y':
     install_hg_proc.wait()
     install_hg_proc1 = Popen('pip install Mercurial --user', shell=True)
     install_hg_proc1.wait()
-    # install_fzf_proc = Popen('cd ~',shell=True)
-    # install_fzf_proc.wait()
-    # install_fzf_proc1 = Popen('mkdir ~/.fzf',shell=True)
-    # install_fzf_proc1.wait()
-    # install_fzf_proc2 = Popen('git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf')
-    # install_fzf_proc2.wait()
-    # install_fzf_proc3 = Popen('~/.fzf/install')
-    # install_fzf_proc3.wait()
+    print("Installing fzf...")
+    install_fzf_proc = Popen('mkdir ~/.fzf', shell=True)
+    install_fzf_proc.wait()
+    install_fzf_proc2 = Popen(
+        'git clone https://github.com/junegunn/fzf.git ~/.fzf')
+    install_fzf_proc2.wait()
+    install_fzf_proc3 = Popen('~/.fzf/install')
+    install_fzf_proc3.wait()
     print("Installing youtube-dl...")
     install_youtubedl_proc = Popen(
         'sudo pip install --upgrade youtube_dl', shell=True)
@@ -153,9 +153,12 @@ if lang_in == 'y':
     install_langs_proc.wait()
     print("Installing Rust...")
     install_rust_proc = Popen(
-        'curl https://sh.rustup.rs -sSf | sh', shell=True)
-    install_rust_proc.communicate(input='\n')
+        'curl https://sh.rustup.rs -o ~/rustup.sh', shell=True)
     install_rust_proc.wait()
+    install_rust_proc1 = Popen('sudo chmod +x ~/rustup.sh', shell=True)
+    install_rust_proc1.wait()
+    install_rust_proc2 = Popen('~/rustup.sh', shell=True)
+    install_rust_proc2.wait()
     print("Installing Crystal...")
     install_crystal_proc = Popen(
         'curl -sSL https://dist.crystal-lang.org/apt/setup.sh', shell=True)
@@ -174,10 +177,7 @@ if lang_in == 'y':
     print("Installing kotlin...")
     install_kotlin_proc = Popen('umake kotlin kotlin-lang', shell=True)
     install_kotlin_proc.wait()
-#     print("Installing maven...")
-#     install_maven_proc = Popen('umake maven maven-lang', shell=True)
-#     install_maven_proc.wait()
-# else:
+else:
     print("Skipping languages...")
 
 
@@ -192,27 +192,24 @@ if txtide_in == 'y':
     install_apps_proc = Popen(
         'sudo apt install glade qtcreator codeblocks neovim python-neovim python3-neovim libgconf2-4 -y', shell=True)
     install_apps_proc.wait()
-    make_idedir = Popen('cd ~', shell=True)
+    make_idedir = Popen('mkdir ~/ides', shell=True)
     make_idedir.wait()
-    make_idedir1 = Popen('mkdir ides', shell=True)
-    make_idedir1.wait()
-    make_idedir2 = Popen('cd ~/ides', shell=True)
-    make_idedir2.wait()
     print("Installing portacle...")
     install_portacle_proc = Popen(
-        'wget https://github.com/portacle/portacle/releases/download/1.2b/lin-portacle.tar.xz', shell=True)
+        'wget https://github.com/portacle/portacle/releases/download/1.2b/lin-portacle.tar.xz -o ~/ides/lin-portacle.tar.xz', shell=True)
     install_portacle_proc.wait()
-    install_portacle_proc1 = Popen('tar -xvzf lin-portacle.tar.xz', shell=True)
+    install_portacle_proc1 = Popen(
+        'tar -xJf ~/ides/lin-portacle.tar.xz', shell=True)
     install_portacle_proc1.wait()
-    cleanup_portacle_install = Popen('rm -rf lin-portacle.tar.xz', shell=True)
+    cleanup_portacle_install = Popen(
+        'rm -rf ~/ides/lin-portacle.tar.xz', shell=True)
     cleanup_portacle_install.wait()
-    change_to_idedir = Popen('cd ~/ides', shell=True)
-    change_to_idedir.wait()
     print("Installing Nightcode...")
     install_nightcode_proc = Popen(
-        'wget https://github.com/oakes/Nightcode/releases/download/2.6.0/Nightcode-2.6.0.deb', shell=True)
+        'wget https://github.com/oakes/Nightcode/releases/download/2.6.0/Nightcode-2.6.0.deb -o ~/ides/Nightcode-2.6.0.deb', shell=True)
     install_nightcode_proc.wait()
-    install_nightcode_proc1 = Popen('dpkg -i Nightcode-2.6.0.deb', shell=True)
+    install_nightcode_proc1 = Popen(
+        'sudo dpkg -i ~/ides/Nightcode-2.6.0.deb', shell=True)
     install_nightcode_proc1.wait()
     print("Installing Sublime Text and Merge...")
     install_st_proc = Popen(
@@ -229,28 +226,22 @@ if txtide_in == 'y':
     install_st_proc4 = Popen(
         'sudo apt install sublime-text sublime-merge -y', shell=True)
     install_st_proc4.wait()
-    # print("Installing android studio...")
-    # install_android_proc = Popen('umake android', shell=True)
-    # install_android_proc.wait()
     print("Installing pycharm...")
     install_pycharm_proc = Popen('umake ide pycharm', shell=True)
     install_pycharm_proc.communicate(input='\n')
     install_pycharm_proc.wait()
     print("Installing intellij idea...")
     install_idea_proc = Popen('umake ide idea', shell=True)
-    install_idea_proc.communicate(input='\n')
     install_idea_proc.wait()
     print("Installing lighttable...")
-    install_lighttable_proc = Popen('umake ide lighttable', shell=True)
-    install_lighttable_proc.communicate(input='\n')
+    install_lighttable_proc = Popen(
+        'umake ide lighttable', shell=True, stdin='\n')
     install_lighttable_proc.wait()
     print("Installing netbeans...")
     install_netbeans_proc = Popen('umake ide netbeans', shell=True)
-    install_netbeans_proc.communicate(input='\n')
     install_netbeans_proc.wait()
     print("Installing vscode...")
     install_vscode_proc = Popen('umake ide visual-studio-code', shell=True)
-    install_vscode_proc.communicate(input='\n')
     install_vscode_proc.wait()
     print("Installing redcar for ruby...")
     install_redcar_proc = Popen('gem install redcar', shell=True)
