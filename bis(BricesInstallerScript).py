@@ -116,7 +116,7 @@ if tools_in == 'y':
 
     add_pip_path = Popen('echo \"export PATH=~/.local/bin/:\\$PATH\" >> ~/.bashrc', shell=True)
     add_pip_path.wait()
-    add_pip_path1 = Popen('source ~/.bashrc', shell=True)
+    add_pip_path1 = Popen('. ~/.bashrc', shell=True)
     add_pip_path1.wait()
     print("Installing Mercurial...")
     install_hg_proc = Popen('pip install Mercurial --user', shell=True)
@@ -195,7 +195,7 @@ if lang_in == 'y':
     install_swift_proc2.wait()
     install_swift_proc3 = Popen('echo \"export PATH=~/swift-4.2.1-RELEASE-ubuntu18.04/usr/bin/:\\$PATH\" >> ~/.bashrc', shell=True)
     install_swift_proc3.wait()
-    install_swift_proc4 = Popen('source ~/.bashrc', shell=True)
+    install_swift_proc4 = Popen('. ~/.bashrc', shell=True)
     install_swift_proc4.wait()
     print("Installing kotlin...")
     install_kotlin_proc = Popen('umake kotlin kotlin-lang', shell=True)
