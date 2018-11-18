@@ -195,6 +195,8 @@ if lang_in == 'y':
     install_swift_proc2.wait()
     install_swift_proc3 = Popen('echo \"export PATH=~/swift-4.2.1-RELEASE-ubuntu18.04/usr/bin/:\\$PATH\" >> ~/.bashrc', shell=True)
     install_swift_proc3.wait()
+    install_swift_proc4 = Popen('source ~/.bashrc', shell=True)
+    install_swift_proc4.wait()
     print("Installing kotlin...")
     install_kotlin_proc = Popen('umake kotlin kotlin-lang', shell=True)
     install_kotlin_proc.wait()
