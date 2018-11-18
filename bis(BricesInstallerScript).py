@@ -111,22 +111,23 @@ if tools_in == 'y':
     install_pip_proc2 = Popen(
         'python ~/Downloads/get-pip.py --user', shell=True)
     install_pip_proc2.wait()
-    add_pip_path = Popen('export PATH=~/.local/bin/:$PATH', shell=True)
+
+    # Need better way to add to PATH, until then these wont work
+
+    add_pip_path = Popen('echo \"export PATH=~/.local/bin/:\\$PATH\" >> ~/.bashrc', shell=True)
     add_pip_path.wait()
     add_pip_path1 = Popen('source ~/.bashrc', shell=True)
     add_pip_path1.wait()
-    add_pip_path2 = Popen('source ~/.profile', shell=True)
-    add_pip_path2.wait()
     print("Installing Mercurial...")
     install_hg_proc = Popen('pip install Mercurial --user', shell=True)
     install_hg_proc.wait()
-    print("Installing fzf...")
-    mkdir_fzf()
-    install_fzf_proc = Popen(
-        'git clone https://github.com/junegunn/fzf.git ~/.fzf')
-    install_fzf_proc.wait()
-    install_fzf_proc1 = Popen('~/.fzf/install --all')
-    install_fzf_proc1.wait()
+    # print("Installing fzf...")
+    # mkdir_fzf()
+    # install_fzf_proc = Popen(
+    #     'git clone https://github.com/junegunn/fzf.git ~/.fzf')
+    # install_fzf_proc.wait()
+    # install_fzf_proc1 = Popen('~/.fzf/install --all')
+    # install_fzf_proc1.wait()
     print("Installing youtube-dl...")
     install_youtubedl_proc = Popen(
         'pip install --upgrade youtube_dl --user', shell=True)
@@ -158,7 +159,7 @@ lang_in = input("Would you like to install all Languages ? (y/N)\n(Go, Rust, Swi
 if lang_in == 'y':
     print("Installing languages...")
     install_langs_proc = Popen(
-        'sudo apt install octave sbcl lua5.3 ghc ruby nim nodejs leiningen golang curl mono-devel -y', shell=True)
+        'sudo apt install octave sbcl lua5.3 ghc ruby ruby2.5-dev ruby2.5 nim nodejs leiningen golang curl mono-devel -y', shell=True)
     install_langs_proc.wait()
     print("Installing Rust...")
     install_rust_proc = Popen(
@@ -170,7 +171,7 @@ if lang_in == 'y':
     install_rust_proc2.wait()
     print("Installing Crystal...")
     install_crystal_proc = Popen(
-        'curl -sSL https://dist.crystal-lang.org/apt/setup.sh', shell=True)
+        'curl -sSL https://dist.crystal-lang.org/apt/setup.sh | sudo bash', shell=True)
     install_crystal_proc.wait()
     install_crystal_proc1 = Popen('sudo apt update && sudo apt install crystal -y', shell=True)
     install_crystal_proc1.wait()
@@ -183,8 +184,17 @@ if lang_in == 'y':
     install_umake_proc1 = Popen('sudo apt update && sudo apt upgrade -y && sudo apt install ubuntu-make -y', shell=True)
     install_umake_proc1.wait()
     print("Installing swift...")
-    install_swift_proc = Popen('umake swift', shell=True)
+    #THis is broken on 18.09 of ubuntu-make
+    #install_swift_proc = Popen('umake swift', shell=True)
+    #install_swift_proc.wait()
+    install_swift_proc = Popen('wget -c https://swift.org/builds/swift-4.2.1-release/ubuntu1804/swift-4.2.1-RELEASE/swift-4.2.1-RELEASE-ubuntu18.04.tar.gz', shell=True)
     install_swift_proc.wait()
+    install_swift_proc1 = Popen('tar -xzf swift-4.2.1-RELEASE-ubuntu18.04.tar.gz', shell=True)
+    install_swift_proc1.wait()
+    install_swift_proc2 = Popen('mv swift-4.2.1-RELEASE-ubuntu18.04 ~', shell=True)
+    install_swift_proc2.wait()
+    install_swift_proc3 = Popen('echo \"export PATH=~/swift-4.2.1-RELEASE-ubuntu18.04/usr/bin/:\\$PATH\" >> ~/.bashrc', shell=True)
+    install_swift_proc3.wait()
     print("Installing kotlin...")
     install_kotlin_proc = Popen('umake kotlin kotlin-lang', shell=True)
     install_kotlin_proc.wait()
