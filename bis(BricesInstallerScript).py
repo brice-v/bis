@@ -32,7 +32,7 @@ print("--------------------------Brices Installer Script------------------------
 print("----------------------------------------------------------------------------")
 
 print("Updating & Upgrading the System...")
-up_proc = Popen('sudo apt update && upgrade -y', shell=True)
+up_proc = Popen('sudo apt update && sudo apt upgrade -y', shell=True)
 up_proc.wait()
 up_proc1 = Popen('sudo apt dist-upgrade -y', shell=True)
 up_proc1.wait()
@@ -128,10 +128,9 @@ if tools_in == 'y':
     install_albert_proc4 = Popen(
         'sudo sh -c \"echo \'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_18.04/ /\' > /etc/apt/sources.list.d/home:manuelschneid3r.list\"', shell=True)
     install_albert_proc4.wait()
-    install_albert_proc5 = Popen('sudo apt update', shell=True)
+    install_albert_proc5 = Popen(
+        'sudo apt update && sudo apt install albert -y', shell=True)
     install_albert_proc5.wait()
-    install_albert_proc6 = Popen('sudo apt install albert -y', shell=True)
-    install_albert_proc6.wait()
 else:
     print("Skipping tools and toolchains...")
 
@@ -216,11 +215,9 @@ if txtide_in == 'y':
     install_st_proc2 = Popen(
         'echo \"deb https://download.sublimetext.com/ apt/stable/\" | sudo tee /etc/apt/sources.list.d/sublime-text.list', shell=True)
     install_st_proc2.wait()
-    install_st_proc3 = Popen('sudo apt update', shell=True)
+    install_st_proc3 = Popen(
+        'sudo apt update && sudo apt install sublime-text sublime-merge -y', shell=True)
     install_st_proc3.wait()
-    install_st_proc4 = Popen(
-        'sudo apt install sublime-text sublime-merge -y', shell=True)
-    install_st_proc4.wait()
     print("Installing pycharm...")
     install_pycharm_proc = Popen('umake ide pycharm', shell=True)
     install_pycharm_proc.wait()
@@ -274,11 +271,9 @@ if improve_look_in == 'y':
     install_papirus_proc = Popen(
         'sudo add-apt-repository ppa:papirus/papirus -y', shell=True)
     install_papirus_proc.wait()
-    install_papirus_proc1 = Popen('sudo apt update', shell=True)
+    install_papirus_proc1 = Popen(
+        'sudo apt update && sudo apt install papirus-icon-theme -y', shell=True)
     install_papirus_proc1.wait()
-    install_papirus_proc2 = Popen(
-        'sudo apt install papirus-icon-theme -y', shell=True)
-    install_papirus_proc2.wait()
     print("Getting some backgrounds...")
     install_backgrounds_proc = Popen(
         'git clone https://github.com/elementary/wallpapers.git /usr/share/backgrounds', shell=True)
@@ -314,7 +309,7 @@ else:
 
 ############################################################################################################
 
-closup_proc = Popen('sudo apt update && upgrade -y', shell=True)
+closup_proc = Popen('sudo apt update && sudo apt upgrade -y', shell=True)
 closup_proc.wait()
 closup_proc1 = Popen('sudo apt dist-upgrade -y', shell=True)
 closup_proc1.wait()
