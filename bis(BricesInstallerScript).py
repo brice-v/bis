@@ -42,21 +42,23 @@ up_proc2.wait()
 
 ############################################################################################################
 
+# Apps Helper Functions
+
 def plank_autostart():
     home = os.environ["HOME"]
     launcher = ["[Desktop Entry]", "Name=Plank", "Exec=plank &",
                 "Type=Application", "X-GNOME-Autostart-enabled=true"]
-    dr = home+"/.config/autostart/"
+    dr = home + "/.config/autostart/"
     if not os.path.exists(dr):
         os.makedirs(dr)
-    file = dr+"Plank".lower()+".desktop"
+    file = dr + "Plank".lower() + ".desktop"
 
     if not os.path.exists(file):
         with open(file, "wt") as out:
             for l in launcher:
-                out.write(l+"\n")
+                out.write(l + "\n")
     else:
-        print("file exists, choose another name")
+        print("plank autostart file exists...\nContinuing...")
 
 
 print("----------------------------------------------------------------------------")
@@ -67,7 +69,9 @@ if app_in == 'y':
     install_app_proc = Popen('sudo apt install python python3 vlc clementine vim emacs geany mupdf evince plank thunderbird\
      firefox galculator aptitude synaptic neofetch virtualbox mutt cmus audacity ranger lynx bc dc sqlite3 ffmpeg -y', shell=True)
     install_app_proc.wait()
+    print("Adding plank to autostart...\n(Effective next restart)")
     plank_autostart()
+    print("Installing nnn terminal file browser...")
     install_app_proc1 = Popen(
         'sudo add-apt-repository ppa:twodopeshaggy/jarun -y', shell=True)
     install_app_proc1.wait()
@@ -80,6 +84,16 @@ else:
 
 ############################################################################################################
 
+# Tools Helper Functions
+
+
+def mkdir_fzf():
+    home = os.environ["HOME"]
+    dr = home + "/.fzf/"
+    if not os.path.exists(dr):
+        os.makedirs(dr)
+    else:
+        print("~/.fzf already exists...\nContinuing...")
 
 print("----------------------------------------------------------------------------")
 tools_in = input("Would you like to install all tools and toolchains? (y/N)\n(clang, git, hg, gcc, coreutils, binutils, pry, htop, sed , awk, fzf, tmux, \
@@ -97,24 +111,25 @@ if tools_in == 'y':
     install_pip_proc2 = Popen(
         'python ~/Downloads/get-pip.py --user', shell=True)
     install_pip_proc2.wait()
-    add_pip_path = Popen('export PATH=~/.local/bin:$PATH', shell=True)
+    add_pip_path = Popen('export PATH=~/.local/bin/:$PATH', shell=True)
     add_pip_path.wait()
     add_pip_path1 = Popen('source ~/.bashrc', shell=True)
     add_pip_path1.wait()
+    add_pip_path2 = Popen('source ~/.profile', shell=True)
+    add_pip_path2.wait()
     print("Installing Mercurial...")
-    install_hg_proc1 = Popen('pip install Mercurial --user', shell=True)
-    install_hg_proc1.wait()
+    install_hg_proc = Popen('pip install Mercurial --user', shell=True)
+    install_hg_proc.wait()
     print("Installing fzf...")
-    install_fzf_proc = Popen('mkdir ~/.fzf', shell=True)
-    install_fzf_proc.wait()
-    install_fzf_proc2 = Popen(
+    mkdir_fzf()
+    install_fzf_proc = Popen(
         'git clone https://github.com/junegunn/fzf.git ~/.fzf')
-    install_fzf_proc2.wait()
-    install_fzf_proc3 = Popen('~/.fzf/install')
-    install_fzf_proc3.wait()
+    install_fzf_proc.wait()
+    install_fzf_proc1 = Popen('~/.fzf/install --all')
+    install_fzf_proc1.wait()
     print("Installing youtube-dl...")
     install_youtubedl_proc = Popen(
-        'sudo pip install --upgrade youtube_dl', shell=True)
+        'pip install --upgrade youtube_dl --user', shell=True)
     install_youtubedl_proc.wait()
     print("Installing Albert Launcher...")
     install_albert_proc1 = Popen(
@@ -129,7 +144,7 @@ if tools_in == 'y':
         'sudo sh -c \"echo \'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_18.04/ /\' > /etc/apt/sources.list.d/home:manuelschneid3r.list\"', shell=True)
     install_albert_proc4.wait()
     install_albert_proc5 = Popen(
-        'sudo apt update && sudo apt install albert -y', shell=True)
+        'sudo apt update && sudo apt upgrade -y && sudo apt install albert -y', shell=True)
     install_albert_proc5.wait()
 else:
     print("Skipping tools and toolchains...")
@@ -147,27 +162,29 @@ if lang_in == 'y':
     install_langs_proc.wait()
     print("Installing Rust...")
     install_rust_proc = Popen(
-        'curl https://sh.rustup.rs -o ~/rustup', shell=True)
+        'curl https://sh.rustup.rs -o ~/rustup.sh', shell=True)
     install_rust_proc.wait()
-    install_rust_proc1 = Popen('sudo chmod +x ~/rustup', shell=True)
+    install_rust_proc1 = Popen('sudo chmod +x ~/rustup.sh', shell=True)
     install_rust_proc1.wait()
-    install_rust_proc2 = Popen('~/rustup', shell=True)
+    install_rust_proc2 = Popen('~/rustup.sh', shell=True)
     install_rust_proc2.wait()
     print("Installing Crystal...")
     install_crystal_proc = Popen(
         'curl -sSL https://dist.crystal-lang.org/apt/setup.sh', shell=True)
     install_crystal_proc.wait()
-    install_crystal_proc1 = Popen('sudo apt install crystal -y', shell=True)
+    install_crystal_proc1 = Popen('sudo apt update && sudo apt install crystal -y', shell=True)
     install_crystal_proc1.wait()
     # Libraries for crystal and one for swift
     install_crystal_proc2 = Popen(
         'sudo apt install libssl-dev libxml2-dev libyaml-dev libgmp-dev libreadline-dev libicu-dev -y ', shell=True)
     install_crystal_proc2.wait()
-    install_swift_proc = Popen('sudo apt install ubuntu-make -y', shell=True)
-    install_swift_proc.wait()
+    install_umake_proc = Popen('sudo add-apt-repository ppa:lyzardking/ubuntu-make -y', shell=True)
+    install_umake_proc.wait()
+    install_umake_proc1 = Popen('sudo apt update && sudo apt upgrade -y && sudo apt install ubuntu-make -y', shell=True)
+    install_umake_proc1.wait()
     print("Installing swift...")
-    install_swift_proc1 = Popen('umake swift', shell=True)
-    install_swift_proc1.wait()
+    install_swift_proc = Popen('umake swift', shell=True)
+    install_swift_proc.wait()
     print("Installing kotlin...")
     install_kotlin_proc = Popen('umake kotlin kotlin-lang', shell=True)
     install_kotlin_proc.wait()
@@ -176,6 +193,18 @@ else:
 
 
 ############################################################################################################
+
+
+# Editors and IDEs helper functions
+
+def mkdir_idesdir():
+    home = os.environ["HOME"]
+    dr = home + "/ides/"
+    if not os.path.exists(dr):
+        os.makedirs(dr)
+    else:
+        print("~/ides already exists...\nContinuing...")
+
 
 print("----------------------------------------------------------------------------")
 txtide_in = input("Would you like to install text editors and ides? (y/N)\n")
@@ -186,24 +215,26 @@ if txtide_in == 'y':
     install_apps_proc = Popen(
         'sudo apt install glade qtcreator codeblocks neovim python-neovim python3-neovim libgconf2-4 -y', shell=True)
     install_apps_proc.wait()
-    make_idedir = Popen('mkdir ~/ides', shell=True)
-    make_idedir.wait()
+    mkdir_idesdir()
     print("Installing portacle...")
     install_portacle_proc = Popen(
-        'wget https://github.com/portacle/portacle/releases/download/1.2b/lin-portacle.tar.xz -o ~/ides/lin-portacle.tar.xz', shell=True)
+        'wget -c https://github.com/portacle/portacle/releases/download/1.2b/lin-portacle.tar.xz', shell=True)
     install_portacle_proc.wait()
     install_portacle_proc1 = Popen(
-        'tar -xJf ~/ides/lin-portacle.tar.xz', shell=True)
+        'tar -xvf ~/bis/lin-portacle.tar.xz', shell=True)
     install_portacle_proc1.wait()
+    install_portacle_proc2 = Popen(
+        'mv ~/bis/portacle/ ~/ides/', shell=True)
+    install_portacle_proc2.wait()
     cleanup_portacle_install = Popen(
-        'rm -rf ~/ides/lin-portacle.tar.xz', shell=True)
+        'rm -rf ~/bis/lin-portacle.tar.xz', shell=True)
     cleanup_portacle_install.wait()
     print("Installing Nightcode...")
     install_nightcode_proc = Popen(
-        'wget https://github.com/oakes/Nightcode/releases/download/2.6.0/Nightcode-2.6.0.deb -o ~/ides/Nightcode-2.6.0.deb', shell=True)
+        'wget -c https://github.com/oakes/Nightcode/releases/download/2.6.0/Nightcode-2.6.0.deb', shell=True)
     install_nightcode_proc.wait()
     install_nightcode_proc1 = Popen(
-        'sudo dpkg -i ~/ides/Nightcode-2.6.0.deb', shell=True)
+        'sudo dpkg -i ~/bis/Nightcode-2.6.0.deb', shell=True)
     install_nightcode_proc1.wait()
     print("Installing Sublime Text and Merge...")
     install_st_proc = Popen(
@@ -234,8 +265,11 @@ if txtide_in == 'y':
     print("Installing vscode...")
     install_vscode_proc = Popen('umake ide visual-studio-code', shell=True)
     install_vscode_proc.wait()
+    print("Updating gems...")
+    update_gem_proc = Popen('sudo gem update --system', shell=True)
+    update_gem_proc.wait()
     print("Installing redcar for ruby...")
-    install_redcar_proc = Popen('gem install redcar', shell=True)
+    install_redcar_proc = Popen('sudo gem install redcar', shell=True)
     install_redcar_proc.wait()
     print("Installing Spacemacs...")
     install_spacemacs_proc = Popen(
@@ -253,20 +287,23 @@ improve_look_in = input("Would you like to update the look? (y/N)\n")
 if improve_look_in == 'y':
     print("Installing vimix and antishade themes...")
     install_antishade_proc = Popen(
-        'git clone https://github.com/KenHarkey/plank-themes.git ~/.local/share/plank/themes', shell=True)
+        'git clone https://github.com/KenHarkey/plank-themes.git ~/Downloads/plank-themes', shell=True)
     install_antishade_proc.wait()
+    install_antishade_proc1 = Popen(
+        'mv ~/Downloads/plank-themes/* ~/.local/share/plank/themes/', shell=True)
+    install_antishade_proc1.wait()
+    cleanup_antishade_proc = Popen(
+        'rm -rf ~/Downloads/plank-themes', shell=True)
+    cleanup_antishade_proc.wait()
     install_vimix_proc = Popen(
         'sudo apt install gtk2-engines-murrine gtk2-engines-pixbuf -y', shell=True)
     install_vimix_proc.wait()
     install_vimix_proc1 = Popen(
-        'git clone https://github.com/vinceliuice/vimix-gtk-themes.git ~/Downloads', shell=True)
+        'git clone https://github.com/vinceliuice/vimix-gtk-themes.git ~/Downloads/vimix', shell=True)
     install_vimix_proc1.wait()
     install_vimix_proc2 = Popen(
-        'sudo chmod +x ~/Downloads/vimix-gtk-themes/Install', shell=True)
+        '~/Downloads/vimix/Install', shell=True)
     install_vimix_proc2.wait()
-    install_vimix_proc3 = Popen(
-        '~/Downloads/vimix-gtk-themes/Install', shell=True)
-    install_vimix_proc3.wait()
     print("Installing papirus icons...")
     install_papirus_proc = Popen(
         'sudo add-apt-repository ppa:papirus/papirus -y', shell=True)
@@ -276,17 +313,23 @@ if improve_look_in == 'y':
     install_papirus_proc1.wait()
     print("Getting some backgrounds...")
     install_backgrounds_proc = Popen(
-        'git clone https://github.com/elementary/wallpapers.git /usr/share/backgrounds', shell=True)
+        'git clone https://github.com/elementary/wallpapers.git ~/Downloads/eoswalls', shell=True)
     install_backgrounds_proc.wait()
     install_backgrounds_proc1 = Popen(
-        'git clone https://github.com/pop-os/wallpapers.git ~/Downloads', shell=True)
+        'sudo mv ~/Downloads/eoswalls/* /usr/share/backgrounds', shell=True)
     install_backgrounds_proc1.wait()
     install_backgrounds_proc2 = Popen(
-        'cp -r ~/Downloads/wallpapers/original /usr/share/backgrounds', shell=True)
+        'git clone https://github.com/pop-os/wallpapers.git ~/Downloads/popwalls', shell=True)
     install_backgrounds_proc2.wait()
+    install_backgrounds_proc3 = Popen(
+        'sudo mv ~/Downloads/popwalls/original/* /usr/share/backgrounds', shell=True)
+    install_backgrounds_proc3.wait()
     cleanup_backgrounds_proc = Popen(
-        'rm -rf ~/Downloads/wallpapers', shell=True)
+        'rm -rf ~/Downloads/popwalls', shell=True)
     cleanup_backgrounds_proc.wait()
+    cleanup_backgrounds_proc1 = Popen(
+        'rm -rf ~/Downloads/eoswalls', shell=True)
+    cleanup_backgrounds_proc1.wait()
 else:
     print("Skipping improving the look...")
 
@@ -299,11 +342,9 @@ work_on_proj = input("Would you like to work on RISCV VM? (y/N)")
 if work_on_proj == 'y':
     # git clone my directory and then maybe open it up in vscode or something
     print("Getting Project...")
-    install_myproj_proc = Popen('mkdir ~/Documents/myprojects', shell=True)
+    install_myproj_proc = Popen(
+        'git clone https://github.com/brice-v/riscv_vm.git ~/Documents/riscv_vm', shell=True)
     install_myproj_proc.wait()
-    install_myproj_proc2 = Popen(
-        'git clone https://github.com/brice-v/riscv_vm.git ~/Documents/myprojects', shell=True)
-    install_myproj_proc2.wait()
 else:
     print("Skipping project...")
 
